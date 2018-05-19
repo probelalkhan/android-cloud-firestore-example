@@ -2,6 +2,7 @@ package com.example.iambe.firestoreexample;
 
 public class Product {
 
+
     private String name, brand, description;
     private double price;
     private int qty;

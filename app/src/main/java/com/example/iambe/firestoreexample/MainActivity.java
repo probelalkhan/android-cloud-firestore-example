@@ -1,5 +1,6 @@
 package com.example.iambe.firestoreexample;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,9 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextQty = findViewById(R.id.edittext_qty);
 
         findViewById(R.id.button_save).setOnClickListener(this);
+        findViewById(R.id.textview_view_products).setOnClickListener(this);
     }
 
-    private boolean validateInputs(String name, String brand, String desc, String price, String qty) {
+    private boolean hasValidationErrors(String name, String brand, String desc, String price, String qty) {
         if (name.isEmpty()) {
             editTextName.setError("Name required");
             editTextName.requestFocus();
@@ -72,16 +74,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
-    @Override
-    public void onClick(View v) {
 
+    private void saveProduct(){
         String name = editTextName.getText().toString().trim();
         String brand = editTextBrand.getText().toString().trim();
         String desc = editTextDesc.getText().toString().trim();
         String price = editTextPrice.getText().toString().trim();
         String qty = editTextQty.getText().toString().trim();
 
-        if (!validateInputs(name, brand, desc, price, qty)) {
+        if (!hasValidationErrors(name, brand, desc, price, qty)) {
 
             CollectionReference dbProducts = db.collection("products");
 
@@ -108,6 +109,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     });
 
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+       switch(v.getId()){
+           case R.id.button_save:
+               saveProduct();
+               break;
+           case R.id.textview_view_products:
+               startActivity(new Intent(this, ProductsActivity.class));
+               break;
+       }
 
     }
 }

@@ -88,6 +88,17 @@
             android:textAllCaps="false"
             android:textColor="@color/colorAccent" />
 
+        <TextView
+            android:id="@+id/textview_view_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="10dp"
+            android:text="View Products"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimaryDark" />
+
 
     </LinearLayout>
 
