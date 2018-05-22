@@ -1,13 +1,18 @@
 package com.example.iambe.firestoreexample;
 
-public class Product {
+import com.google.firebase.firestore.Exclude;
 
+import java.io.Serializable;
+
+public class Product implements Serializable{
+
+    @Exclude private String id;
 
     private String name, brand, description;
     private double price;
     private int qty;
 
-    public Product(){
+    public Product() {
 
     }
 
@@ -17,6 +22,14 @@ public class Product {
         this.description = description;
         this.price = price;
         this.qty = qty;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -38,4 +51,5 @@ public class Product {
     public int getQty() {
         return qty;
     }
+
 }

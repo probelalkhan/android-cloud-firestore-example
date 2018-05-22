@@ -52,13 +52,14 @@ public class ProductsActivity extends AppCompatActivity {
 
                         progressBar.setVisibility(View.GONE);
 
-                        if(!queryDocumentSnapshots.isEmpty()){
+                        if (!queryDocumentSnapshots.isEmpty()) {
 
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
 
-                            for(DocumentSnapshot d : list){
+                            for (DocumentSnapshot d : list) {
 
                                 Product p = d.toObject(Product.class);
+                                p.setId(d.getId());
                                 productList.add(p);
 
                             }
