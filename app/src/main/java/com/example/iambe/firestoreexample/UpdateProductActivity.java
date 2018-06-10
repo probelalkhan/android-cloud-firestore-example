@@ -102,7 +102,13 @@ public class UpdateProductActivity extends AppCompatActivity implements View.OnC
 
 
             db.collection("products").document(product.getId())
-                    .set(p)
+                    .update(
+                            "brand", p.getBrand(),
+                            "description", p.getDescription(),
+                            "name", p.getName(),
+                            "price", p.getPrice(),
+                            "qty", p.getQty()
+                    )
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
