@@ -1,15 +1,19 @@
 package com.example.iambe.firestoreexample;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -49,6 +53,7 @@ public class UpdateProductActivity extends AppCompatActivity implements View.OnC
 
 
         findViewById(R.id.button_update).setOnClickListener(this);
+        findViewById(R.id.button_delete).setOnClickListener(this);
     }
 
     private boolean hasValidationErrors(String name, String brand, String desc, String price, String qty) {
@@ -118,11 +123,49 @@ public class UpdateProductActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    private void deleteProduct() {
+        db.collection("products").document(product.getId()).delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(UpdateProductActivity.this, "Product deleted", Toast.LENGTH_LONG).show();
+                            finish();
+                            startActivity(new Intent(UpdateProductActivity.this, ProductsActivity.class));
+                        }
+                    }
+                });
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_update:
                 updateProduct();
+                break;
+            case R.id.button_delete:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Are you sure about this?");
+                builder.setMessage("Deletion is permanent...");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteProduct();
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                AlertDialog ad = builder.create();
+                ad.show();
+
                 break;
         }
     }

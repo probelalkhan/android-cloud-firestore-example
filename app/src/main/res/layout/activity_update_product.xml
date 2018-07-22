@@ -88,6 +88,16 @@
             android:textAllCaps="false"
             android:textColor="@color/colorAccent" />
 
+        <Button
+            android:id="@+id/button_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="#cf0b0b"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent" />
+
     </LinearLayout>
 
 </RelativeLayout>
